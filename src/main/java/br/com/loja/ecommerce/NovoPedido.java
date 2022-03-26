@@ -1,5 +1,6 @@
 package br.com.loja.ecommerce;
 
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -12,9 +13,14 @@ public class NovoPedido {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         var producer = new KafkaProducer<String, String>(properties());
+
         var value = "1, 2, 3";
         var record = new ProducerRecord<>("ECOMMERCE_NOVO_PEDIDO", value, value);
-        producer.send(record, (data, ex) -> {
+
+        var email = "Obrigado por seu pedido! Nós estamos processando!";
+        var emailRecord = new ProducerRecord<>("ECOMMERCE_ENVIAR_EMAIL", email, email);
+
+        Callback callback = (data, ex) -> {
             if (ex != null) {
                 ex.printStackTrace();
                 return;
@@ -23,7 +29,10 @@ public class NovoPedido {
                     ":::partition " + data.partition() +
                     "/ offset " + data.offset() +
                     "/ timestamp " + data.timestamp());
-        }).get();
+        };
+
+        producer.send(record, callback).get();
+        producer.send(emailRecord, callback).get();
     }
 
     private static Properties properties() {
