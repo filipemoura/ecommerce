@@ -3,6 +3,7 @@ package br.com.loja.ecommerce;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
+import java.util.HashMap;
 import java.util.Properties;
 
 public class DetectorFraudeService {
@@ -12,7 +13,8 @@ public class DetectorFraudeService {
         try (var service = new KafkaService<Order>(DetectorFraudeService.class.getSimpleName(),
                 "ECOMMERCE_NOVO_PEDIDO",
                 fraudeService::parse,
-                Order.class)) {
+                Order.class,
+                new HashMap<>())) {
             service.run();
         };
     }
