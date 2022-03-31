@@ -13,7 +13,6 @@ public class NovoPedido {
                     var userId = UUID.randomUUID().toString();
                     var orderId = UUID.randomUUID().toString();
                     var value = new BigDecimal(Math.random() * 5000 + 1);
-
                     var order = new Order(userId, orderId, value);
                     orderDispatcher.send("ECOMMERCE_NOVO_PEDIDO", userId, order);
 
