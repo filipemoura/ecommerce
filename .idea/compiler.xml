@@ -11,6 +11,7 @@
         <module name="common-kafka" />
         <module name="service-detector-fraude" />
         <module name="service-email" />
+        <module name="service-users" />
       </profile>
     </annotationProcessing>
   </component>

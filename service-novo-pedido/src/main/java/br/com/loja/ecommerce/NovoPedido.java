@@ -13,11 +13,13 @@ public class NovoPedido {
                     var userId = UUID.randomUUID().toString();
                     var orderId = UUID.randomUUID().toString();
                     var value = new BigDecimal(Math.random() * 5000 + 1);
-                    var order = new Order(userId, orderId, value);
+                    var email = Math.random() + "@email.com";
+
+                    var order = new Order(userId, orderId, value, email);
                     orderDispatcher.send("ECOMMERCE_NOVO_PEDIDO", userId, order);
 
-                    var email = "Obrigado por seu pedido! Nós estamos processando!";
-                    emailDispatcher.send("ECOMMERCE_ENVIAR_EMAIL", userId, email);
+                    var emailBody = "Obrigado por seu pedido! Nós estamos processando!";
+                    emailDispatcher.send("ECOMMERCE_ENVIAR_EMAIL", userId, emailBody);
                 }
             }
         }

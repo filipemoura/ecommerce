@@ -1,5 +1,3 @@
-package br.com.loja.ecommerce;
-
 import java.math.BigDecimal;
 
 public class Order {
@@ -13,5 +11,13 @@ public class Order {
         this.orderId = orderId;
         this.valor = valor;
         this.email = email;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
