@@ -1,3 +1,5 @@
+package br.com.loja.ecommerce;
+
 import br.com.loja.ecommerce.KafkaService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -6,7 +8,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 public class CreateUserService {
 
@@ -53,7 +54,7 @@ public class CreateUserService {
         insert.setString(1, UUID.randomUUID().toString());
         insert.setString(2, email);
         insert.execute();
-        System.out.println("Usuário uuid e " + email + " adicionado.");
+        System.out.println("Usuário " + email + " adicionado.");
         System.out.println();
     }
 

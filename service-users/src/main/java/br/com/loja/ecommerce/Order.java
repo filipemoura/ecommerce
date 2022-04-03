@@ -1,3 +1,5 @@
+package br.com.loja.ecommerce;
+
 import java.math.BigDecimal;
 
 public class Order {
