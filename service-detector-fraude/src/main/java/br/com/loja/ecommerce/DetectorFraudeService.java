@@ -40,10 +40,10 @@ public class DetectorFraudeService {
         var order = record.value();
         if (isFraude(order)) {
             System.out.println("Pedido é uma fraude!!! " + order);
-            orderDispatcher.send("ECOMMERCE_PEDIDO_REJEITADO", order.getUserId(), order);
+            orderDispatcher.send("ECOMMERCE_PEDIDO_REJEITADO", order.getEmail(), order);
         } else {
             System.out.println("Pedido aprovado: " + order);
-            orderDispatcher.send("ECOMMERCE_PEDIDO_APROVADO", order.getUserId(), order);
+            orderDispatcher.send("ECOMMERCE_PEDIDO_APROVADO", order.getEmail(), order);
         }
     }
 

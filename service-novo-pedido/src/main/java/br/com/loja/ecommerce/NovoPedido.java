@@ -9,17 +9,16 @@ public class NovoPedido {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         try (var orderDispatcher = new KafkaDispatcher<Order>()) {
             try (var emailDispatcher = new KafkaDispatcher<String>()) {
+                var email = Math.random() + "@email.com";
                 for (var i = 0; i < 5; i++) {
-                    var userId = UUID.randomUUID().toString();
                     var orderId = UUID.randomUUID().toString();
                     var value = new BigDecimal(Math.random() * 5000 + 1);
-                    var email = Math.random() + "@email.com";
 
-                    var order = new Order(userId, orderId, value, email);
-                    orderDispatcher.send("ECOMMERCE_NOVO_PEDIDO", userId, order);
+                    var order = new Order(orderId, value, email);
+                    orderDispatcher.send("ECOMMERCE_NOVO_PEDIDO", email, order);
 
                     var emailBody = "Obrigado por seu pedido! Nós estamos processando!";
-                    emailDispatcher.send("ECOMMERCE_ENVIAR_EMAIL", userId, emailBody);
+                    emailDispatcher.send("ECOMMERCE_ENVIAR_EMAIL", email, emailBody);
                 }
             }
         }
